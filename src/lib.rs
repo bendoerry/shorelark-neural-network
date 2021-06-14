@@ -13,6 +13,18 @@ struct Neuron {
 
 impl Network {
     pub fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
+        let mut inputs = inputs;
+
+        for layer in &self.layers {
+            inputs = layer.propagrate(inputs);
+        }
+
+        inputs
+    }
+}
+
+impl Layer {
+    fn propagrate(&self, inputs: Vec<f32>) -> Vec<f32> {
         todo!()
     }
 }
