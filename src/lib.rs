@@ -24,7 +24,7 @@ impl Layer {
         let mut outputs = Vec::new();
 
         for neuron in &self.neurons {
-            let output = neuron.propagate(inputs);
+            let output = neuron.propagate(&inputs);
             outputs.push(output);
         }
 
@@ -33,7 +33,7 @@ impl Layer {
 }
 
 impl Neuron {
-    fn propagate(&self, inputs: Vec<f32>) -> f32 {
+    fn propagate(&self, inputs: &[f32]) -> f32 {
         todo!()
     }
 }
