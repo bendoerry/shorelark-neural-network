@@ -1,5 +1,7 @@
 use std::usize;
 
+use rand::Rng;
+
 pub struct Network {
     layers: Vec<Layer>,
 }
@@ -67,9 +69,13 @@ impl Neuron {
     }
 
     pub fn random(output_size: usize) -> Self {
-        let bias = todo!();
+        let mut rng = rand::thread_rng();
 
-        let weights = (0..output_size).map(|_| todo!()).collect();
+        let bias = rng.gen_range(-1.0..=1.0);
+
+        let weights = (0..output_size)
+            .map(|_| rng.gen_range(-1.0..=1.0))
+            .collect();
 
         Self { bias, weights }
     }
