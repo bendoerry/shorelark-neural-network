@@ -13,6 +13,10 @@ struct Neuron {
     weights: Vec<f32>,
 }
 
+pub struct LayerTopology {
+    pub neurons: usize,
+}
+
 impl Network {
     pub fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
         self.layers
@@ -20,7 +24,7 @@ impl Network {
             .fold(inputs, |inputs, layer| layer.propagate(inputs))
     }
 
-    pub fn random(neurons_per_layer: Vec<usize>) -> Self {
+    pub fn random(layers: Vec<LayerTopology>) -> Self {
         todo!()
     }
 }
