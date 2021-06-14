@@ -30,6 +30,18 @@ impl Layer {
 
 impl Neuron {
     fn propagate(&self, inputs: &[f32]) -> f32 {
-        todo!()
+        let mut output = 0.0;
+
+        for i in 0..inputs.len() {
+            output += inputs[i] * self.weights[i];
+        }
+
+        output += self.bias;
+
+        if output > 0.0 {
+            output
+        } else {
+            0.0
+        }
     }
 }
