@@ -65,4 +65,12 @@ impl Neuron {
 
         (self.bias + output).max(0.0)
     }
+
+    pub fn random(output_size: usize) -> Self {
+        let bias = todo!();
+
+        let weights = (0..output_size).map(|_| todo!()).collect();
+
+        Self { bias, weights }
+    }
 }
