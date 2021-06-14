@@ -48,7 +48,7 @@ impl Layer {
 
     pub fn random(input_neurons: usize, output_neurons: usize) -> Self {
         let neurons = (0..output_neurons)
-            .map(|_| Neuron::random(input_neurons))
+            .map(|_| Neuron::random(&mut rand::thread_rng(), input_neurons))
             .collect();
 
         Self { neurons }
@@ -68,9 +68,7 @@ impl Neuron {
         (self.bias + output).max(0.0)
     }
 
-    pub fn random(output_size: usize) -> Self {
-        let mut rng = rand::thread_rng();
-
+    pub fn random(rng: &mut dyn rand::RngCore, output_size: usize) -> Self {
         let bias = rng.gen_range(-1.0..=1.0);
 
         let weights = (0..output_size)
