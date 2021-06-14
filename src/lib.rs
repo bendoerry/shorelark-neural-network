@@ -24,7 +24,7 @@ impl Network {
             .fold(inputs, |inputs, layer| layer.propagate(inputs))
     }
 
-    pub fn random(layers: Vec<LayerTopology>) -> Self {
+    pub fn random(layers: &[LayerTopology]) -> Self {
         assert!(layers.len() > 1);
 
         let layers = layers
