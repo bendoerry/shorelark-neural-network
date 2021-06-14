@@ -25,7 +25,18 @@ impl Network {
     }
 
     pub fn random(layers: Vec<LayerTopology>) -> Self {
-        todo!()
+        let mut built_layers = Vec::new();
+
+        for i in 0..(layers.len() - 1) {
+            let input_neurons = layers[i].neurons;
+            let output_neurons = layers[i + 1].neurons;
+
+            built_layers.push(Layer::random(input_neurons, output_neurons));
+        }
+
+        Self {
+            layers: built_layers,
+        }
     }
 }
 
