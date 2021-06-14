@@ -40,10 +40,6 @@ impl Neuron {
 
         output += self.bias;
 
-        if output > 0.0 {
-            output
-        } else {
-            0.0
-        }
+        output.max(0.0)
     }
 }
