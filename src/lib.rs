@@ -1,7 +1,7 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+pub struct Network;
+
+impl Network {
+    pub fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
+        todo!()
     }
 }
