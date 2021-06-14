@@ -102,4 +102,28 @@ mod tests {
             );
         }
     }
+
+    mod propagate {
+        use crate::Neuron;
+
+        #[test]
+        fn test() {
+            let neuron = Neuron {
+                bias: 0.5,
+                weights: vec![-0.3, 0.8],
+            };
+
+            // Ensures `.max()` (our ReLU) works:
+            approx::assert_relative_eq!(neuron.propagate(&[-10.0, -10.0]), 0.0);
+
+            // `0.5` and `1.0` chosen by a fair dice roll:
+            approx::assert_relative_eq!(
+                neuron.propagate(&[0.5, 1.0]),
+                (-0.3 * 0.5) + (0.8 * 1.0) + 0.5,
+            );
+
+            // We could've written `1.15` right away, but showing the entire
+            // formula makes our intentions clearer
+        }
+    }
 }
