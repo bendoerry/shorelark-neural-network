@@ -1,3 +1,5 @@
+use std::usize;
+
 pub struct Network {
     layers: Vec<Layer>,
 }
@@ -16,6 +18,10 @@ impl Network {
         self.layers
             .iter()
             .fold(inputs, |inputs, layer| layer.propagate(inputs))
+    }
+
+    pub fn random(neurons_per_layer: Vec<usize>) -> Self {
+        todo!()
     }
 }
 
