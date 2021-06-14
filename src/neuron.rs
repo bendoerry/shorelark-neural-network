@@ -1,8 +1,8 @@
 use rand::Rng;
 
 pub struct Neuron {
-    bias: f32,
-    weights: Vec<f32>,
+    crate bias: f32,
+    crate weights: Vec<f32>,
 }
 
 impl Neuron {

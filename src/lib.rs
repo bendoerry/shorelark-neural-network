@@ -1,3 +1,5 @@
+#![feature(crate_visibility_modifier)]
+
 use crate::layer::Layer;
 use crate::layer_topology::LayerTopology;
 
