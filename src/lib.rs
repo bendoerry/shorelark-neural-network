@@ -21,7 +21,7 @@ impl Network {
 
 impl Layer {
     fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
-        let mut outputs = Vec::new();
+        let mut outputs = Vec::with_capacity(self.neurons.len());
 
         for neuron in &self.neurons {
             let output = neuron.propagate(&inputs);
