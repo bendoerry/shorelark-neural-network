@@ -34,8 +34,8 @@ impl Neuron {
 
         let mut output = 0.0;
 
-        for i in 0..inputs.len() {
-            output += inputs[i] * self.weights[i];
+        for (&input, &weight) in inputs.iter().zip(&self.weights) {
+            output += input * weight
         }
 
         output += self.bias;
