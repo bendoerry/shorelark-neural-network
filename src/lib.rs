@@ -43,6 +43,16 @@ impl Layer {
             .map(|neuron| neuron.propagate(&inputs))
             .collect()
     }
+
+    pub fn random(input_neurons: usize, output_neurons: usize) -> Self {
+        let mut neurons = Vec::new();
+
+        for _ in 0..output_neurons {
+            neurons.push(Neuron::random(input_neurons));
+        }
+
+        Self { neurons }
+    }
 }
 
 impl Neuron {
