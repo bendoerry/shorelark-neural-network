@@ -29,9 +29,9 @@ impl Network {
 
         let mut built_layers = Vec::new();
 
-        for i in 0..(layers.len() - 1) {
-            let input_neurons = layers[i].neurons;
-            let output_neurons = layers[i + 1].neurons;
+        for adjacent_layers in layers.windows(2) {
+            let input_neurons = adjacent_layers[0].neurons;
+            let output_neurons = adjacent_layers[1].neurons;
 
             built_layers.push(Layer::random(input_neurons, output_neurons));
         }
