@@ -21,6 +21,19 @@ impl Network {
 
 impl Layer {
     fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
+        let mut outputs = Vec::new();
+
+        for neuron in &self.neurons {
+            let output = neuron.propagate(inputs);
+            outputs.push(output);
+        }
+
+        outputs
+    }
+}
+
+impl Neuron {
+    fn propagate(&self, inputs: Vec<f32>) -> f32 {
         todo!()
     }
 }
