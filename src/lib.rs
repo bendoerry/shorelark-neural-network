@@ -107,7 +107,7 @@ mod tests {
         use crate::Neuron;
 
         #[test]
-        fn test() {
+        fn test_lower_bound_is_zero() {
             let neuron = Neuron {
                 bias: 0.5,
                 weights: vec![-0.3, 0.8],
@@ -115,6 +115,14 @@ mod tests {
 
             // Ensures `.max()` (our ReLU) works:
             approx::assert_relative_eq!(neuron.propagate(&[-10.0, -10.0]), 0.0);
+        }
+
+        #[test]
+        fn test_propagation_calculation() {
+            let neuron = Neuron {
+                bias: 0.5,
+                weights: vec![-0.3, 0.8],
+            };
 
             // `0.5` and `1.0` chosen by a fair dice roll:
             approx::assert_relative_eq!(
