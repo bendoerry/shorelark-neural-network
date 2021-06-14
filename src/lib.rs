@@ -25,6 +25,8 @@ impl Network {
     }
 
     pub fn random(layers: Vec<LayerTopology>) -> Self {
+        assert!(layers.len() > 1);
+
         let mut built_layers = Vec::new();
 
         for i in 0..(layers.len() - 1) {
