@@ -62,4 +62,34 @@ mod tests {
             approx::assert_relative_eq!(actual_weights.as_slice(), expected_weights.as_slice());
         }
     }
+
+    mod propagate {
+        use crate::neuron::Neuron;
+
+        use super::super::Layer;
+
+        #[test]
+        fn test() {
+            let neurons = (
+                Neuron {
+                    bias: 0.0,
+                    weights: vec![0.1, 0.2, 0.3],
+                },
+                Neuron {
+                    bias: 0.0,
+                    weights: vec![0.4, 0.5, 0.6],
+                },
+            );
+            let layer = Layer {
+                neurons: vec![neurons.0.clone(), neurons.1.clone()],
+            };
+
+            let inputs = &[-0.5, 0.0, 0.5];
+
+            let actual = layer.propagate(inputs.to_vec());
+            let expected = vec![neurons.0.propagate(inputs), neurons.1.propagate(inputs)];
+
+            approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
+        }
+    }
 }

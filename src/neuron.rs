@@ -1,5 +1,6 @@
 use rand::Rng;
 
+#[derive(Clone)]
 pub struct Neuron {
     crate bias: f32,
     crate weights: Vec<f32>,
