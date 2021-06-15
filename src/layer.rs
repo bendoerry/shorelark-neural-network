@@ -1,7 +1,7 @@
 use crate::neuron::Neuron;
 
 pub struct Layer {
-    neurons: Vec<Neuron>,
+    crate neurons: Vec<Neuron>,
 }
 
 impl Layer {
