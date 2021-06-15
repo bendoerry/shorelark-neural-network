@@ -102,4 +102,42 @@ mod tests {
             );
         }
     }
+
+    mod propagate {
+        use crate::{layer::Layer, neuron::Neuron};
+
+        use super::super::Network;
+
+        #[test]
+        fn test() {
+            let layers = (
+                Layer {
+                    neurons: vec![
+                        Neuron {
+                            bias: 0.0,
+                            weights: vec![-0.5, -0.4, -0.3],
+                        },
+                        Neuron {
+                            bias: 0.0,
+                            weights: vec![-0.2, -0.1, 0.0],
+                        },
+                    ],
+                },
+                Layer {
+                    neurons: vec![Neuron {
+                        bias: 0.0,
+                        weights: vec![-0.5, 0.5],
+                    }],
+                },
+            );
+            let network = Network {
+                layers: vec![layers.0.clone(), layers.1.clone()],
+            };
+
+            let actual = network.propagate(vec![0.5, 0.6, 0.7]);
+            let expected = layers.1.propagate(layers.0.propagate(vec![0.5, 0.6, 0.7]));
+
+            approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
+        }
+    }
 }
