@@ -6,6 +6,15 @@ pub struct Layer {
 }
 
 impl Layer {
+    crate fn new(neurons: Vec<Neuron>) -> Self {
+        assert!(!neurons.is_empty());
+        assert!(neurons
+            .iter()
+            .all(|neuron| neuron.weights.len() == neurons[0].weights.len()));
+
+        Self { neurons }
+    }
+
     pub fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
         self.neurons
             .iter()
@@ -72,18 +81,10 @@ mod tests {
         #[test]
         fn test() {
             let neurons = (
-                Neuron {
-                    bias: 0.0,
-                    weights: vec![0.1, 0.2, 0.3],
-                },
-                Neuron {
-                    bias: 0.0,
-                    weights: vec![0.4, 0.5, 0.6],
-                },
+                Neuron::new(0.0, vec![0.1, 0.2, 0.3]),
+                Neuron::new(0.0, vec![0.4, 0.5, 0.6]),
             );
-            let layer = Layer {
-                neurons: vec![neurons.0.clone(), neurons.1.clone()],
-            };
+            let layer = Layer::new(vec![neurons.0.clone(), neurons.1.clone()]);
 
             let inputs = &[-0.5, 0.0, 0.5];
 

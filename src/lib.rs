@@ -13,6 +13,10 @@ pub struct Network {
 }
 
 impl Network {
+    crate fn new(layers: Vec<Layer>) -> Self {
+        Self { layers }
+    }
+
     pub fn propagate(&self, inputs: Vec<f32>) -> Vec<f32> {
         self.layers
             .iter()
@@ -111,28 +115,13 @@ mod tests {
         #[test]
         fn test() {
             let layers = (
-                Layer {
-                    neurons: vec![
-                        Neuron {
-                            bias: 0.0,
-                            weights: vec![-0.5, -0.4, -0.3],
-                        },
-                        Neuron {
-                            bias: 0.0,
-                            weights: vec![-0.2, -0.1, 0.0],
-                        },
-                    ],
-                },
-                Layer {
-                    neurons: vec![Neuron {
-                        bias: 0.0,
-                        weights: vec![-0.5, 0.5],
-                    }],
-                },
+                Layer::new(vec![
+                    Neuron::new(0.0, vec![-0.5, -0.4, -0.3]),
+                    Neuron::new(0.0, vec![-0.2, -0.1, 0.0]),
+                ]),
+                Layer::new(vec![Neuron::new(0.0, vec![-0.5, 0.5])]),
             );
-            let network = Network {
-                layers: vec![layers.0.clone(), layers.1.clone()],
-            };
+            let network = Network::new(vec![layers.0.clone(), layers.1.clone()]);
 
             let actual = network.propagate(vec![0.5, 0.6, 0.7]);
             let expected = layers.1.propagate(layers.0.propagate(vec![0.5, 0.6, 0.7]));

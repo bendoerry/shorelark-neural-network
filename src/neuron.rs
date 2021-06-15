@@ -7,6 +7,12 @@ pub struct Neuron {
 }
 
 impl Neuron {
+    crate fn new(bias: f32, weights: Vec<f32>) -> Self {
+        assert!(!weights.is_empty());
+
+        Self { bias, weights }
+    }
+
     pub fn propagate(&self, inputs: &[f32]) -> f32 {
         assert_eq!(inputs.len(), self.weights.len());
 
@@ -59,10 +65,7 @@ mod tests {
 
         #[test]
         fn test_lower_bound_is_zero() {
-            let neuron = Neuron {
-                bias: 0.5,
-                weights: vec![-0.3, 0.8],
-            };
+            let neuron = Neuron::new(0.5, vec![-0.3, 0.8]);
 
             // Ensures `.max()` (our ReLU) works:
             approx::assert_relative_eq!(neuron.propagate(&[-10.0, -10.0]), 0.0);
@@ -70,10 +73,7 @@ mod tests {
 
         #[test]
         fn test_propagation_calculation() {
-            let neuron = Neuron {
-                bias: 0.5,
-                weights: vec![-0.3, 0.8],
-            };
+            let neuron = Neuron::new(0.5, vec![-0.3, 0.8]);
 
             // `0.5` and `1.0` chosen by a fair dice roll:
             approx::assert_relative_eq!(
