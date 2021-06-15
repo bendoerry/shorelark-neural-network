@@ -1,4 +1,5 @@
 #![feature(crate_visibility_modifier)]
+#![feature(array_methods)]
 
 use crate::layer::Layer;
 use crate::layer_topology::LayerTopology;
@@ -27,5 +28,78 @@ impl Network {
             .collect();
 
         Self { layers }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    mod random {
+        use rand::SeedableRng;
+        use rand_chacha::ChaCha8Rng;
+
+        use crate::layer_topology::LayerTopology;
+
+        use super::super::Network;
+
+        #[test]
+        fn test_layer_sizes() {
+            let mut rng = ChaCha8Rng::from_seed(Default::default());
+            let network = Network::random(
+                &mut rng,
+                &[
+                    LayerTopology { neurons: 3 },
+                    LayerTopology { neurons: 2 },
+                    LayerTopology { neurons: 1 },
+                ],
+            );
+
+            assert_eq!(network.layers.len(), 2);
+            assert_eq!(network.layers[0].neurons.len(), 2);
+            assert_eq!(network.layers[1].neurons.len(), 1);
+        }
+
+        #[test]
+        fn test_biases() {
+            let mut rng = ChaCha8Rng::from_seed(Default::default());
+            let network = Network::random(
+                &mut rng,
+                &[
+                    LayerTopology { neurons: 3 },
+                    LayerTopology { neurons: 2 },
+                    LayerTopology { neurons: 1 },
+                ],
+            );
+
+            approx::assert_relative_eq!(network.layers[0].neurons[0].bias, -0.6255188);
+            approx::assert_relative_eq!(network.layers[0].neurons[1].bias, 0.5238807);
+            approx::assert_relative_eq!(network.layers[1].neurons[0].bias, -0.102499366);
+        }
+
+        #[test]
+        fn test_weights() {
+            let mut rng = ChaCha8Rng::from_seed(Default::default());
+            let network = Network::random(
+                &mut rng,
+                &[
+                    LayerTopology { neurons: 3 },
+                    LayerTopology { neurons: 2 },
+                    LayerTopology { neurons: 1 },
+                ],
+            );
+
+            approx::assert_relative_eq!(
+                network.layers[0].neurons[0].weights.as_slice(),
+                &[0.67383957, 0.8181262, 0.26284897].as_slice()
+            );
+            approx::assert_relative_eq!(
+                network.layers[0].neurons[1].weights.as_slice(),
+                &[-0.5351684, 0.069369555, -0.7648182].as_slice()
+            );
+            approx::assert_relative_eq!(
+                network.layers[1].neurons[0].weights.as_slice(),
+                &[-0.48879623, -0.19277143].as_slice()
+            );
+        }
     }
 }
