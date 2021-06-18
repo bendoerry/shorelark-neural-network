@@ -1,6 +1,8 @@
 #![feature(crate_visibility_modifier)]
 #![feature(array_methods)]
 
+use std::iter::once;
+
 use crate::layer::Layer;
 pub use crate::layer_topology::LayerTopology;
 
@@ -36,19 +38,12 @@ impl Network {
     }
 
     pub fn weights(&self) -> Vec<f32> {
-        let mut weights = Vec::new();
-
-        for layer in &self.layers {
-            for neuron in &layer.neurons {
-                weights.push(neuron.bias);
-
-                for weight in &neuron.weights {
-                    weights.push(*weight);
-                }
-            }
-        }
-
-        weights
+        self.layers
+            .iter()
+            .flat_map(|layer| layer.neurons.iter())
+            .flat_map(|neuron| once(&neuron.bias).chain(&neuron.weights))
+            .cloned()
+            .collect()
     }
 }
 
