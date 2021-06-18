@@ -8,6 +8,7 @@ mod layer;
 mod layer_topology;
 mod neuron;
 
+#[derive(Debug)]
 pub struct Network {
     layers: Vec<Layer>,
 }
