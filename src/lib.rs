@@ -36,7 +36,19 @@ impl Network {
     }
 
     pub fn weights(&self) -> Vec<f32> {
-        todo!();
+        let mut weights = Vec::new();
+
+        for layer in &self.layers {
+            for neuron in &layer.neurons {
+                weights.push(neuron.bias);
+
+                for weight in &neuron.weights {
+                    weights.push(*weight);
+                }
+            }
+        }
+
+        weights
     }
 }
 
