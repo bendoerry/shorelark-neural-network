@@ -134,4 +134,23 @@ mod tests {
             approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
         }
     }
+
+    mod weights {
+        use crate::{layer::Layer, neuron::Neuron};
+
+        use super::super::Network;
+
+        #[test]
+        fn test() {
+            let network = Network::new(vec![
+                Layer::new(vec![Neuron::new(0.1, vec![0.2, 0.3, 0.4])]),
+                Layer::new(vec![Neuron::new(0.5, vec![0.6, 0.7, 0.8])]),
+            ]);
+
+            let actual = network.weights();
+            let expected = vec![0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
+
+            approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
+        }
+    }
 }
