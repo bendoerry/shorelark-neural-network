@@ -37,13 +37,12 @@ impl Network {
         Self { layers }
     }
 
-    pub fn weights(&self) -> Vec<f32> {
+    pub fn weights(&self) -> impl Iterator<Item = f32> + '_ {
         self.layers
             .iter()
             .flat_map(|layer| layer.neurons.iter())
             .flat_map(|neuron| once(&neuron.bias).chain(&neuron.weights))
             .cloned()
-            .collect()
     }
 }
 
@@ -154,7 +153,7 @@ mod tests {
                 Layer::new(vec![Neuron::new(0.5, vec![0.6, 0.7, 0.8])]),
             ]);
 
-            let actual = network.weights();
+            let actual: Vec<_> = network.weights().collect();
             let expected = vec![0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
 
             approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
