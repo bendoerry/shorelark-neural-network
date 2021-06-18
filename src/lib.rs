@@ -2,7 +2,7 @@
 #![feature(array_methods)]
 
 use crate::layer::Layer;
-use crate::layer_topology::LayerTopology;
+pub use crate::layer_topology::LayerTopology;
 
 mod layer;
 mod layer_topology;
