@@ -34,6 +34,10 @@ impl Network {
 
         Self { layers }
     }
+
+    pub fn weights(&self) -> Vec<f32> {
+        todo!();
+    }
 }
 
 #[cfg(test)]
