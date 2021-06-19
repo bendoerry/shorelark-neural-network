@@ -44,6 +44,10 @@ impl Network {
             .flat_map(|neuron| once(&neuron.bias).chain(&neuron.weights))
             .cloned()
     }
+
+    pub fn from_weights(layers: &[LayerTopology], weights: impl IntoIterator<Item = f32>) -> Self {
+        todo!();
+    }
 }
 
 #[cfg(test)]
