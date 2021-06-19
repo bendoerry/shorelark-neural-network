@@ -34,6 +34,16 @@ impl Neuron {
 
         Self { bias, weights }
     }
+
+    pub fn from_weights(output_neurons: usize, weights: &mut dyn Iterator<Item = f32>) -> Self {
+        let bias = weights.next().expect("got not enough weights");
+
+        let weights = (0..output_neurons)
+            .map(|_| weights.next().expect("got not enough weights"))
+            .collect();
+
+        Self { bias, weights }
+    }
 }
 
 #[cfg(test)]
