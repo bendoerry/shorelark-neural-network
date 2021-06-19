@@ -163,4 +163,22 @@ mod tests {
             approx::assert_relative_eq!(actual.as_slice(), expected.as_slice());
         }
     }
+
+    mod from_weights {
+        use crate::LayerTopology;
+
+        use super::super::Network;
+
+        #[test]
+        fn test() {
+            let layers = &[LayerTopology { neurons: 3 }, LayerTopology { neurons: 2 }];
+
+            let weights = vec![0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
+
+            let network = Network::from_weights(layers, weights.clone());
+            let actual: Vec<_> = network.weights().collect();
+
+            approx::assert_relative_eq!(actual.as_slice(), weights.as_slice());
+        }
+    }
 }
